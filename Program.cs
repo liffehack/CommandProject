@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Visual_lab3
 {
+//sss
     class Program
     {
         struct product
