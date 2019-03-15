@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 //hello world
 namespace Visual_lab3
 {
+//sss
     class Program
     {
         struct product
