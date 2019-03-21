@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 //check
+=======
+//jfgobuh
+//hello world
+>>>>>>> 4156463b910ecab02dbbf23fab109c55a4c16ea8
 namespace Visual_lab3
 {
 //sss
