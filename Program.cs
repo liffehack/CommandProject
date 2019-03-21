@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//check
 namespace Visual_lab3
 {
 //sss
@@ -11,6 +11,7 @@ namespace Visual_lab3
     {
         struct product
         {
+
             private string name;
             private DateTime created;
             private int shelf_life;
