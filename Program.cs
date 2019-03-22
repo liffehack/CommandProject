@@ -3,103 +3,91 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-<<<<<<< HEAD
-//check
-=======
-//jfgobuh
-//hello world
->>>>>>> 4156463b910ecab02dbbf23fab109c55a4c16ea8
-namespace Visual_lab3
+using System.Collections;
+
+namespace Program
 {
-//sss
     class Program
     {
-        struct product
-        {
 
-            private string name;
-            private DateTime created;
-            private int shelf_life;
-            private int price;
-            private int serial_number;
-            public product(string NAME,DateTime CREATED,int SHELF_LIFE,int PRICE,int NUMBER)
-            {
-                name = NAME;
-                created = CREATED;
-                shelf_life = SHELF_LIFE;
-                price = PRICE;
-                serial_number = NUMBER;
-            }
+        // Структура "Авиарейсы"
+        public class Flight
+        {
+            private int num_r;            // номер авиарейса
+            private DateTime time_start;  // время вылета
+            private DateTime time_finish; // время прибытия
+            private string napravlenie;   // направление
+            private string marka;         // марка самолёта
+            private int distance;         // расстояние
+            public Flight() { }
+
+            //Конструктор для инициализации
+            public Flight(int NUM_R,  DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
+                {
+                num_r=NUM_R;
+                napravlenie = NAPRAVLENIE;
+                time_start = TIME_START;
+                time_finish = TIME_FINISH;
+                marka = MARKA;
+                distance = DISTANCE;
+                }
+
+            //Метод для вывода данных объекта структуры
             public void print_all()
             {
-                Console.WriteLine("Name is: " + name);
-                Console.WriteLine("Date of creation: "+created);
-                Console.WriteLine("Shelf life: " + shelf_life);
-                Console.WriteLine("Price: " + price);
-                Console.WriteLine("Serial number: " + serial_number);
+                Console.WriteLine("Номер авиарейса: " + num_r );
+                Console.WriteLine("Время вылета: " + time_start);
+                Console.WriteLine("Время прилета: " + time_finish);
+                Console.WriteLine("Направление: " + napravlenie);
+                Console.WriteLine("Марка самолёта: " + marka);
+                Console.WriteLine("Расстояние: " + distance);
+                Console.WriteLine("_________________________" + distance);
             }
-            public void print_info()
-            {
-                int year=created.Year, month=created.Month, day=created.Day, hour=created.Hour+shelf_life;
-                while(hour>=24)
-                {
-                    hour = hour - 24;
-                    day = day + 1;
-                    if(day>30)
-                    {
-                        day = day - 30;
-                        month = month + 1;
-                    }
-                }
-                Console.WriteLine("Name is: " + name);
-                Console.WriteLine("Date of shelf: " + new DateTime(year,month,day,hour,00,00));
-                Console.ReadKey();
-            }
+
         }
+
+        
+            
+
         static void Main(string[] args)
-        {
-            List<product> Product=new List<product>();
-            string name;
-            int year, month, day, hour, hours_of_shelf, price, serial_number;
-            ConsoleKeyInfo cki;
-            do
+        {   
+            //Создаем список структуры авиарейса
+            List<Flight> list = new List<Flight>();
+            //Заполняем список
+            list.Add(new Flight(1, new DateTime(2015, 7, 20), new DateTime(2015, 7, 21), "Moscow->Cheb", "CHINA", 1000));
+            list.Add(new Flight(2, new DateTime(2015, 7, 22), new DateTime(2015, 7, 23), "Cheb->Moscow", "CHINA", 1000));
+            list.Add(new Flight(3, new DateTime(2015, 7, 24), new DateTime(2015, 7, 25), "Moscow->Kazan", "CHINA", 1200));
+            list.Add(new Flight(4, new DateTime(2015, 7, 26), new DateTime(2015, 7, 27), "Kazan->Moscow", "CHINA", 1200));
+            list.Add(new Flight(5, new DateTime(2015, 7, 28), new DateTime(2015, 7, 29), "Kazan->Cheb", "CHINA", 200));
+            list.Add(new Flight(6, new DateTime(2015, 7, 30), new DateTime(2015, 7, 31), "Cheb->Kazan", "CHINA", 200));
+            Console.WriteLine("\t\t Выберите пункт меню: ");
+            Console.WriteLine("1.	Ввести в список еще один элемент");
+            Console.WriteLine("2.	Вывести весь список. Вывести вместе с полями все элементы.");
+            Console.WriteLine("3.	Вывести отфильтрованный список.(по умолчанию фильтр пуст).");
+            Console.WriteLine("4.	Ввести значения фильтра.");
+            Console.WriteLine("5.	Выйти из программы.");
+            //Запускаем цикл, чтобы пользователь мог выбрать пункты
+            while (true)
             {
-                Console.WriteLine("Choose what to do:");
-                Console.WriteLine("Enter to exit");
-                Console.WriteLine("1-add a new element in a list");
-                Console.WriteLine("2-print list");
-                cki = Console.ReadKey();
-                if(cki.Key==ConsoleKey.D1)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Input the parameters: ");
-                    Console.Write("Name is: ");
-                    name =Console.ReadLine();
-                    Console.Write("Year of creating: ");
-                    year = int.Parse(Console.ReadLine());
-                    Console.Write("Month of creating: ");
-                    month = int.Parse(Console.ReadLine());
-                    Console.Write("Day of creating: ");
-                    day = int.Parse(Console.ReadLine());
-                    Console.Write("Hour: ");
-                    hour = int.Parse(Console.ReadLine());
-                    Console.Write("Hours of shelf: ");
-                    hours_of_shelf = int.Parse(Console.ReadLine());
-                    Console.Write("Price: ");
-                    price = int.Parse(Console.ReadLine());
-                    Console.Write("Serial number: ");
-                    serial_number = int.Parse(Console.ReadLine());
-                    Product.Add(new product(name, new DateTime(year, month, day, hour, 00, 00), hours_of_shelf, price, serial_number));
+                //Реакция системы на клавиатуры
+                switch (Console.ReadLine()){
+                    case "1": Console.WriteLine("\t\tВвод элемента в список "); break;
+                    case "2": Console.WriteLine("\t\tВывод всего списка");
+                        foreach (Flight l in list)
+                        {
+                            l.print_all();   
+                        }
+
+
+                            break;
+                    case "3": Console.WriteLine("\t\tВывод отфильтрованного списка "); break;
+                    case "4": Console.WriteLine("\t\tВвод значения фильтра "); break;
+                    case "5":
+                        System.Environment.Exit(0);
+                        break;
+                    default:  break;
                 }
-                if(cki.Key==ConsoleKey.D2)
-                {
-                    Console.Clear();
-                    foreach (product i in Product)
-                        i.print_info();
-                }
-                Console.Clear();
             }
-            while (cki.Key != ConsoleKey.Enter);
         }
     }
 }
