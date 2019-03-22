@@ -9,6 +9,11 @@ namespace Program
 {
     class Program
     {
+        #region Объявление перечиления marks
+
+        enum marks { AIRBIS, BOEING, IL96};
+
+        #endregion
 
         // Структура "Авиарейсы"
         public class Flight
@@ -41,8 +46,31 @@ namespace Program
                 Console.WriteLine("Направление: " + napravlenie);
                 Console.WriteLine("Марка самолёта: " + marka);
                 Console.WriteLine("Расстояние: " + distance);
-                Console.WriteLine("_________________________" + distance);
+                Console.WriteLine("_________________________");
             }
+
+            //Метод для вывода всех рейсов
+            public static void WriteAllFlight(ref List<Flight> list)
+            {
+                Console.Clear();
+                foreach (var l in list)
+                {
+                    l.print_all();
+                }
+            }
+
+            //Метод для добавления новых рейсов
+            public static void AddFlight(ref List<Flight> list)
+            {
+                Console.Clear();
+                Console.Write("Введите номер авиарейса: ");
+                Console.Write("Введите время вылета в формате ДД.ММ.ГГГГ : ");
+                Console.Write("Введите время прилета в формате ДД.ММ.ГГГГ : ");
+                Console.Write("Введите направление ");
+                Console.Write("Введите марку самолёта: ");
+                Console.Write("Введите расстояние: ");
+            }
+
 
         }
 
@@ -71,21 +99,16 @@ namespace Program
             {
                 //Реакция системы на клавиатуры
                 switch (Console.ReadLine()){
-                    case "1": Console.WriteLine("\t\tВвод элемента в список "); break;
+                    case "1": Console.WriteLine("\t\tВвод элемента в список ");  break;
                     case "2": Console.WriteLine("\t\tВывод всего списка");
-                        foreach (Flight l in list)
-                        {
-                            l.print_all();   
-                        }
-
-
+                        Flight.WriteAllFlight(ref list);
                             break;
                     case "3": Console.WriteLine("\t\tВывод отфильтрованного списка "); break;
                     case "4": Console.WriteLine("\t\tВвод значения фильтра "); break;
                     case "5":
                         System.Environment.Exit(0);
                         break;
-                    default:  break;
+                    default: Console.WriteLine("Введите заного: "); break;
                 }
             }
         }
