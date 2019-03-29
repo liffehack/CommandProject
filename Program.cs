@@ -9,7 +9,70 @@ namespace Program
 {
     class Program
     {
+static void Main(string[] args)
+        {   
+            // Создаем список структуры авиарейса
+            List<Flight> list = new List<Flight>();
+            
+            // Заполняем список
+            list.Add(new Flight(1, new DateTime(2015, 7, 20, 19, 00, 00), new DateTime(2015, 7, 21, 18, 30, 00), "Moscow->Cheb", "CHINA", 1000));
+            list.Add(new Flight(2, new DateTime(2015, 7, 22, 08, 00, 00), new DateTime(2015, 7, 23, 09, 00, 00), "Cheb->Moscow", "CHINA", 1000));
+            list.Add(new Flight(3, new DateTime(2015, 7, 24, 13, 00, 00), new DateTime(2015, 7, 25, 14, 00, 00), "Moscow->Kazan", "CHINA", 1200));
+            list.Add(new Flight(4, new DateTime(2015, 7, 26, 18, 00, 00), new DateTime(2015, 7, 27, 23, 00, 00), "Kazan->Moscow", "CHINA", 1200));
+            list.Add(new Flight(5, new DateTime(2015, 7, 28, 17, 00, 00), new DateTime(2015, 7, 29, 21, 00, 00), "Kazan->Cheb", "CHINA", 200));
+            list.Add(new Flight(6, new DateTime(2015, 7, 30, 14, 00, 00), new DateTime(2015, 7, 31, 01, 00, 00), "Cheb->Kazan", "CHINA", 200));
 
+            // Объявление переменной для работы с меню
+            LengthFilter filter = new LengthFilter();
+
+            // Бесконечный цикл
+            while (true)
+            {
+                // Вывести главное меню
+                Console.WriteLine("\t\t Выберите пункт меню: ");
+                Console.WriteLine("1.	Ввести в список еще один элемент");
+                Console.WriteLine("2.	Вывести весь список. Вывести вместе с полями все элементы.");
+                Console.WriteLine("3.	Вывести отфильтрованный список.(по умолчанию фильтр пуст).");
+                Console.WriteLine("4.	Ввести значения фильтра.");
+                Console.WriteLine("5.	Выйти из программы.");
+                // Ожидание выбора пользователем пункта в главном меню
+                switch (Console.ReadLine()){
+                    // Обработка выбора пользоветеля
+                                          
+                    case "1": 
+                        // Ввод нового элемента в список
+                        Console.WriteLine("\t\tВвод элемента в список ");
+                        Flight.AddFlight(ref list);
+                        break;
+                        
+                    case "2":
+                        // Вывод всего списка
+                        Console.WriteLine("\t\tВывод всего списка");
+                        Flight.Out_All_Flight(ref list);
+                            break;
+                        
+                    case "3":
+                        // Вывод отфильтрованного списка
+                        Console.WriteLine("\t\tВывод отфильтрованного списка ");
+                        filter.FilterFlight(list);
+                        break;
+
+                    case "4":
+                        // Ввод значения фильтра
+                        Console.WriteLine("\t\tВвод значения фильтра ");
+                        filter.Read_length_filter();
+                        break;
+
+                    case "5":
+                        // Выход
+                        System.Environment.Exit(0);
+                        break;
+
+                    default: Console.WriteLine("Введите заного: ");
+                        break;
+                }
+            }
+        }
         #region Объявление структуры Flight
 
         // Хранит информациаю об авиарейсе и методы для работы с ним
@@ -201,73 +264,6 @@ namespace Program
             }
 
         }
-        #endregion
-
-        static void Main(string[] args)
-        {   
-            // Создаем список структуры авиарейса
-            List<Flight> list = new List<Flight>();
-            
-            // Заполняем список
-            list.Add(new Flight(1, new DateTime(2015, 7, 20, 19, 00, 00), new DateTime(2015, 7, 21, 18, 30, 00), "Moscow->Cheb", "CHINA", 1000));
-            list.Add(new Flight(2, new DateTime(2015, 7, 22, 08, 00, 00), new DateTime(2015, 7, 23, 09, 00, 00), "Cheb->Moscow", "CHINA", 1000));
-            list.Add(new Flight(3, new DateTime(2015, 7, 24, 13, 00, 00), new DateTime(2015, 7, 25, 14, 00, 00), "Moscow->Kazan", "CHINA", 1200));
-            list.Add(new Flight(4, new DateTime(2015, 7, 26, 18, 00, 00), new DateTime(2015, 7, 27, 23, 00, 00), "Kazan->Moscow", "CHINA", 1200));
-            list.Add(new Flight(5, new DateTime(2015, 7, 28, 17, 00, 00), new DateTime(2015, 7, 29, 21, 00, 00), "Kazan->Cheb", "CHINA", 200));
-            list.Add(new Flight(6, new DateTime(2015, 7, 30, 14, 00, 00), new DateTime(2015, 7, 31, 01, 00, 00), "Cheb->Kazan", "CHINA", 200));
-
-            // Объявление переменной для работы с меню
-            LengthFilter filter = new LengthFilter();
-
-            // Бесконечный цикл
-            while (true)
-            {
-                // Вывести главное меню
-                Console.WriteLine("\t\t Выберите пункт меню: ");
-                Console.WriteLine("1.	Ввести в список еще один элемент");
-                Console.WriteLine("2.	Вывести весь список. Вывести вместе с полями все элементы.");
-                Console.WriteLine("3.	Вывести отфильтрованный список.(по умолчанию фильтр пуст).");
-                Console.WriteLine("4.	Ввести значения фильтра.");
-                Console.WriteLine("5.	Выйти из программы.");
-                // Ожидание выбора пользователем пункта в главном меню
-                switch (Console.ReadLine()){
-                    // Обработка выбора пользоветеля
-                                          
-                    case "1": 
-                        // Ввод нового элемента в список
-                        Console.WriteLine("\t\tВвод элемента в список ");
-                        Flight.AddFlight(ref list);
-                        break;
-                        
-                    case "2":
-                        // Вывод всего списка
-                        Console.WriteLine("\t\tВывод всего списка");
-                        Flight.Out_All_Flight(ref list);
-                            break;
-                        
-                    case "3":
-                        // Вывод отфильтрованного списка
-                        Console.WriteLine("\t\tВывод отфильтрованного списка ");
-                        filter.FilterFlight(list);
-                        break;
-
-                    case "4":
-                        // Ввод значения фильтра
-                        Console.WriteLine("\t\tВвод значения фильтра ");
-                        filter.Read_length_filter();
-                        break;
-
-                    case "5":
-                        // Выход
-                        System.Environment.Exit(0);
-                        break;
-
-                    default: Console.WriteLine("Введите заного: ");
-                        break;
-                }
-            }
-        }
-
-      
+        #endregion    
     }
 }
