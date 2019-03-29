@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+<<<<<<< HEAD
 
+=======
+//semyon1
+>>>>>>> 486f932af61883460e1e2df35d02b503747f731b
 namespace Program
 {
     class Program
