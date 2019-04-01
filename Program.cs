@@ -56,7 +56,8 @@ namespace Program
                         // Выход
                         System.Environment.Exit(0);
                         break;
-
+						
+						// Если пользователь ввёл не то что нужно
                     default:
                         Console.WriteLine("Введите заного: ");
                         break;
