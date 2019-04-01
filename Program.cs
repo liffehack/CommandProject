@@ -11,8 +11,8 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            List<Flight> list = new List<Flight>();// Список для авиарейса
-            LengthFilter filter = new LengthFilter();// Список фильтра, сюда будем заносить рейсы, удовлетворяющие нашему фильтру
+            List<Flight> list = new List<Flight>();		// Список для авиарейса
+            LengthFilter filter = new LengthFilter();	// Список фильтра, сюда будем заносить рейсы, удовлетворяющие нашему фильтру
 
             // Бесконечный цикл для главного меню
             while (true)
@@ -24,6 +24,7 @@ namespace Program
                 Console.WriteLine("3.	Вывести отфильтрованный список.(по умолчанию фильтр пуст).");
                 Console.WriteLine("4.	Ввести значения фильтра.");
                 Console.WriteLine("5.	Выйти из программы.");
+				
                 // Ожидание выбора пользователем пункта в главном меню
                 switch (Console.ReadLine())
                 {
@@ -58,6 +59,7 @@ namespace Program
                         break;
 
                     default:
+						// Пользователь ввёл не то что нужно
                         Console.WriteLine("Введите заного: ");
                         break;
                 }
@@ -77,7 +79,7 @@ namespace Program
             
             // Инициализация рейса
             public Flight(int NUM_R, DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
-            // (номер рейса, время вылета, время прибытия, направление, марка самолёта, расстояние)
+            // Flight(номер рейса, время вылета, время прибытия, направление, марка самолёта, расстояние)
             {
                 num_r = NUM_R;
                 napravlenie = NAPRAVLENIE;
@@ -113,6 +115,7 @@ namespace Program
 
             // Вывод всего списка
             public static void Out_All_Flight(ref List<Flight> list)
+			// Out_All_Flight(список авиарейса)
             {
                 Console.Clear();
                 // Проходимся по каждому эелементу
@@ -125,8 +128,8 @@ namespace Program
 
             // Добавление нового рейса
             public static void AddFlight(ref List<Flight> list)
+			// AddFlight(список авиарейса)
             {
-                //Элемент для добавления
                 Flight fl = new Flight();
                 Console.Clear();
                 Console.Write("Введите номер авиарейса: ");
@@ -182,7 +185,7 @@ namespace Program
 
             // Инициализация фильтра
             public LengthFilter(int days, int hours, int minutes, int seconds)
-            // (дни, часы, минуты, секунды)
+            // LengthFilter(дни, часы, минуты, секунды)
             {
                 this.days = days;
                 this.hours = hours;
@@ -192,7 +195,7 @@ namespace Program
 
             // Изменить значение фильтра
             public void ChangeFilterValue(int days, int hours, int minutes, int seconds)
-            // (дни, часы, минуты, секунды)
+            // ChangeFilterValue(дни, часы, минуты, секунды)
             {
                 this.days = days;
                 this.hours = hours;
@@ -216,14 +219,14 @@ namespace Program
 
             // Фильтрация данных
             public List<Flight> FilterFlight(List<Flight> flights)
-            // (список отфильтрованных данных)
+            // FilterFlight(список отфильтрованных данных)
             {
                 Console.Clear();
-                List<Flight> list = new List<Flight>();// список для отфильтрованных рейсов
+                List<Flight> list = new List<Flight>();	// список для отфильтрованных рейсов
                 int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds; // считаем секунды
-                int maxlength = 0;// максимальная длительность полёта из всего списка рейсов.
+                int maxlength = 0;	// максимальная длительность полёта из всего списка рейсов.
 
-                // Предварительный осмотр списка авиарейса, находим максимульную длительность полёта
+                // Предварительный осмотр рейсов, находим максимульную длительность полёта
                 foreach (Flight w in flights)
                 {
                     // если длительносить рейса больше предыдущего то обновляем макс. длительность
@@ -232,7 +235,7 @@ namespace Program
                         maxlength = w.Get_length_seconds();
                     }
                 }
-
+				// Вторичный осмотр рейсов
                 foreach (Flight w in flights)
                 {
                     // Если значения фильтра не установлено, по умолчанию, то выводим рейс с максимальной длительностью
@@ -245,9 +248,10 @@ namespace Program
                             list.Add(w);
                         }
                     }
-                    // иначе выводим список, где длительность полёта рейса больше заданной длительности фильтра
+                    // иначе выводим список
                     else
                     {
+						// где длительность полёта рейса больше заданной длительности фильтра
                         if (w.Get_length_seconds() > length)
                         {
                             w.Out_Flight_Info();
