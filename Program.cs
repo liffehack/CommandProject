@@ -183,6 +183,7 @@ namespace Program
 
             // Инициализация фильтра
             public LengthFilter(int days, int hours, int minutes, int seconds)
+			// (дни, часы, минуты, секунды)
             {
                 this.days = days;
                 this.hours = hours;
@@ -192,6 +193,7 @@ namespace Program
 
             // Изменить значение фильтра
             public void ChangeFilterValue(int days, int hours, int minutes, int seconds)
+			// (дни, часы, минуты, секунды)
             {
                 this.days = days;
                 this.hours = hours;
@@ -218,7 +220,7 @@ namespace Program
             {
                 Console.Clear();
                 List<Flight> list = new List<Flight>();
-                int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds;
+                int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds; //считаем секунды
                 int maxlength=0;
 
                 //Предварительный осмотр списка авиарейса, находим максимульную длительность полёта
