@@ -130,8 +130,10 @@ namespace Program
             public static void AddFlight(ref List<Flight> list)
 			// AddFlight(список авиарейса)
             {
-                Flight fl = new Flight();
+                Flight fl = new Flight();// Создаем новый рейс
                 Console.Clear();
+				
+				//Начинаем заполнять наш рейс
                 Console.Write("Введите номер авиарейса: ");
                 fl.num_r = Int32.Parse(Console.ReadLine());
                 Console.Write("Введите время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS], строго по этому формату : ");
@@ -144,15 +146,15 @@ namespace Program
                 fl.marka = Console.ReadLine();
                 Console.Write("Введите расстояние: ");
                 fl.distance = Int32.Parse(Console.ReadLine());
-                // После того как всё ввели, добавляем рейс к нашему списку
+				
+                // После того как всё ввели, добавляем рейс к нашему списку рейсов
                 list.Add(fl);
             }
 
             // Получить длительность полёта в секундах
             public int Get_length_seconds()
             {
-                // длительность
-                int lentgh = 0;
+                int lentgh = 0;// длительность
                 // Разница времени прилёта от вылета
                 int day = time_finish.Day - time_start.Day;
                 int hour = time_finish.Hour - time_start.Hour;
@@ -160,6 +162,7 @@ namespace Program
                 int second = time_finish.Second - time_start.Second;
                 // Разница в секундах = длительность в секундах
                 lentgh = day * 24 * 60 * 60 + hour * 60 * 60 + minute * 60 + second;
+				
                 return lentgh;  // возвращаем длительность полёта в секундах  
             }
         }
