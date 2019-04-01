@@ -9,13 +9,11 @@ namespace Program
 {
     class Program
     {
-        // Список для авиарейса
-        static List<Flight> list = new List<Flight>();
-        // Список фильтра, сюда будем заносить рейсы, удовлетворяющие нашему фильтру
-        static LengthFilter filter = new LengthFilter();
-
         static void Main(string[] args)
         {
+			List<Flight> list = new List<Flight>();// Список для авиарейса
+			LengthFilter filter = new LengthFilter();// Список фильтра, сюда будем заносить рейсы, удовлетворяющие нашему фильтру
+			
             // Бесконечный цикл для главного меню
             while (true)
             {
