@@ -118,8 +118,10 @@ namespace Program
             public static void Out_All_Flight(ref List<Flight> list)
             {
                 Console.Clear();
+				// Проходимся по каждому эелементу
                 foreach (var l in list)
                 {
+					// Выводим информацию о элементе
                     l.Out_Flight_Info();
                 }
             }
@@ -151,14 +153,14 @@ namespace Program
             {
                 //длительность
                 int lentgh = 0;
-                //Разница времени finish от start
+                //Разница времени прилёта от вылета
                 int day = time_finish.Day - time_start.Day;
                 int hour = time_finish.Hour - time_start.Hour;
                 int minute = time_finish.Minute - time_start.Minute;
                 int second = time_finish.Second - time_start.Second;
                 //Разница в секундах = длительность в секундах
                 lentgh = day * 24 * 60 * 60 + hour * 60 * 60 + minute * 60 + second;
-                return lentgh;  // возвращаем полёта длительность в секундах  
+                return lentgh;  // возвращаем длительность полёта в секундах  
             }
         }
         #endregion
@@ -217,6 +219,7 @@ namespace Program
 
             // Фильтрация данных
             public List<Flight> FilterFlight (List<Flight> flights)
+			// (список отфильтрованных данных)
             {
                 Console.Clear();
                 List<Flight> list = new List<Flight>();
@@ -252,7 +255,7 @@ namespace Program
                         }
                     }
                 }
-                return list;
+                return list;// Возвращаем отфильтрованнный список
             }
 
         }
