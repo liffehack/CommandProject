@@ -78,7 +78,7 @@ namespace Program
 
             // Инициализация рейса
             public Flight(int NUM_R,  DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
-                // (номер рейса, время вылета, время прибытия, направление, марка самолёта, расстояние)
+                // Параметры=(номер рейса, время вылета, время прибытия, направление, марка самолёта, расстояние)
                 {
                 num_r=NUM_R;
                 napravlenie = NAPRAVLENIE;
@@ -125,7 +125,8 @@ namespace Program
             }
 
             // Добавление нового рейса
-            public static void AddFlight(ref List<Flight> list)
+            public static void AddFlight(ref List<Flight> list)			
+			// <param name="list">список авиарейса</param>
             {
                 //Элемент для добавления
                 Flight fl = new Flight();
@@ -193,7 +194,7 @@ namespace Program
 
             // Изменить значение фильтра
             public void ChangeFilterValue(int days, int hours, int minutes, int seconds)
-			// (дни, часы, минуты, секунды)
+			// Параметры=(дни, часы, минуты, секунды)
             {
                 this.days = days;
                 this.hours = hours;
@@ -217,7 +218,7 @@ namespace Program
 
             // Фильтрация данных
             public List<Flight> FilterFlight (List<Flight> flights)
-			// (список отфильтрованных данных)
+			// <param name="flights">список отфильтрованных данных</param>
             {
                 Console.Clear();
                 List<Flight> list = new List<Flight>();// список для отфильтрованных рейсов
