@@ -126,7 +126,7 @@ namespace Program
                 }
             }
 
-            //Добавление нового рейса
+            // Добавление нового рейса
             public static void AddFlight(ref List<Flight> list)
             {
                 //Элемент для добавления
@@ -148,17 +148,17 @@ namespace Program
                 list.Add(fl);
             }
 
-            //Получить длительность полёта в секундах
+            // Получить длительность полёта в секундах
             public int Get_length_seconds()
             {
-                //длительность
+                // длительность
                 int lentgh = 0;
-                //Разница времени прилёта от вылета
+                // Разница времени прилёта от вылета
                 int day = time_finish.Day - time_start.Day;
                 int hour = time_finish.Hour - time_start.Hour;
                 int minute = time_finish.Minute - time_start.Minute;
                 int second = time_finish.Second - time_start.Second;
-                //Разница в секундах = длительность в секундах
+                // Разница в секундах = длительность в секундах
                 lentgh = day * 24 * 60 * 60 + hour * 60 * 60 + minute * 60 + second;
                 return lentgh;  // возвращаем длительность полёта в секундах  
             }
@@ -169,10 +169,10 @@ namespace Program
 
         class LengthFilter
         {
-            private int days;   //Длительность дней полёта
-            private int hours;  //Длительность часов полёта
-            private int minutes;//Длительность минут полёта
-            private int seconds;//Длительность секунд полёта
+            private int days;   // Длительность дней полёта
+            private int hours;  // Длительность часов полёта
+            private int minutes;// Длительность минут полёта
+            private int seconds;// Длительность секунд полёта
 
             // Инициализация по умолчанию
             public LengthFilter()
@@ -223,12 +223,13 @@ namespace Program
             {
                 Console.Clear();
                 List<Flight> list = new List<Flight>();// список для отфильтрованных рейсов
-                int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds; //считаем секунды
+                int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds; // считаем секунды
                 int maxlength=0;// максимальная длительность полёта из всего списка рейсов.
 
-                //Предварительный осмотр списка авиарейса, находим максимульную длительность полёта
+                // Предварительный осмотр списка авиарейса, находим максимульную длительность полёта
                 foreach (Flight w in flights)
                 {
+					// если длительносить рейса больше предыдущего то обновляем макс. длительность
                     if (w.Get_length_seconds()>maxlength)
                     {
                         maxlength = w.Get_length_seconds();
