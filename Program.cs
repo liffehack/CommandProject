@@ -11,9 +11,9 @@ namespace Program
     {
         static void Main(string[] args)
         {
-			List<Flight> list = new List<Flight>();// Список для авиарейса
-			LengthFilter filter = new LengthFilter();// Список фильтра, сюда будем заносить рейсы, удовлетворяющие нашему фильтру
-			
+            List<Flight> list = new List<Flight>();// Список для авиарейса
+            LengthFilter filter = new LengthFilter();// Список фильтра, сюда будем заносить рейсы, удовлетворяющие нашему фильтру
+
             // Бесконечный цикл для главного меню
             while (true)
             {
@@ -56,8 +56,7 @@ namespace Program
                         // Выход
                         System.Environment.Exit(0);
                         break;
-						
-						// Если пользователь ввёл не то что нужно
+
                     default:
                         Console.WriteLine("Введите заного: ");
                         break;
@@ -67,7 +66,7 @@ namespace Program
 
         #region Объявление структуры Flight
         // Хранит информациаю об авиарейсе и методы для работы с ним
-        public class Flight
+        public struct Flight
         {
             private int num_r;            // номер авиарейса
             private DateTime time_start;  // время вылета
@@ -75,19 +74,18 @@ namespace Program
             private string napravlenie;   // направление
             private string marka;         // марка самолёта
             private int distance;         // расстояние
-            public Flight() {}
-
+            
             // Инициализация рейса
-            public Flight(int NUM_R,  DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
-                // Параметры=(номер рейса, время вылета, время прибытия, направление, марка самолёта, расстояние)
-                {
-                num_r=NUM_R;
+            public Flight(int NUM_R, DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
+            // (номер рейса, время вылета, время прибытия, направление, марка самолёта, расстояние)
+            {
+                num_r = NUM_R;
                 napravlenie = NAPRAVLENIE;
                 time_start = TIME_START;
                 time_finish = TIME_FINISH;
                 marka = MARKA;
                 distance = DISTANCE;
-                }
+            }
 
             // Получить начало вылета
             public DateTime Get_time_start()
@@ -104,7 +102,7 @@ namespace Program
             // Вывод информации об одном авиарейсе
             public void Out_Flight_Info()
             {
-                Console.WriteLine("Номер авиарейса: " + num_r );
+                Console.WriteLine("Номер авиарейса: " + num_r);
                 Console.WriteLine("Время вылета: " + time_start);
                 Console.WriteLine("Время прилета: " + time_finish);
                 Console.WriteLine("Направление: " + napravlenie);
@@ -117,23 +115,22 @@ namespace Program
             public static void Out_All_Flight(ref List<Flight> list)
             {
                 Console.Clear();
-				// Проходимся по каждому эелементу
+                // Проходимся по каждому эелементу
                 foreach (var l in list)
                 {
-					// Выводим информацию о элементе
+                    // Выводим информацию о элементе
                     l.Out_Flight_Info();
                 }
             }
 
             // Добавление нового рейса
-            public static void AddFlight(ref List<Flight> list)			
-			// <param name="list">список авиарейса</param>
+            public static void AddFlight(ref List<Flight> list)
             {
                 //Элемент для добавления
                 Flight fl = new Flight();
                 Console.Clear();
                 Console.Write("Введите номер авиарейса: ");
-                fl.num_r =Int32.Parse(Console.ReadLine());
+                fl.num_r = Int32.Parse(Console.ReadLine());
                 Console.Write("Введите время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS], строго по этому формату : ");
                 fl.time_start = DateTime.Parse(Console.ReadLine());
                 Console.Write("Введите время прилета в формате [ДД.ММ.ГГГГДД.ММ.ГГГГ HH:MM:SS] строго по этому формату : ");
@@ -141,9 +138,9 @@ namespace Program
                 Console.Write("Введите направление ");
                 fl.napravlenie = Console.ReadLine();
                 Console.Write("Введите марку самолёта: ");
-                fl.marka=Console.ReadLine();
+                fl.marka = Console.ReadLine();
                 Console.Write("Введите расстояние: ");
-                fl.distance=Int32.Parse(Console.ReadLine());
+                fl.distance = Int32.Parse(Console.ReadLine());
                 // После того как всё ввели, добавляем рейс к нашему списку
                 list.Add(fl);
             }
@@ -185,17 +182,17 @@ namespace Program
 
             // Инициализация фильтра
             public LengthFilter(int days, int hours, int minutes, int seconds)
-			// (дни, часы, минуты, секунды)
+            // (дни, часы, минуты, секунды)
             {
                 this.days = days;
                 this.hours = hours;
                 this.minutes = minutes;
                 this.seconds = seconds;
-             }
+            }
 
             // Изменить значение фильтра
             public void ChangeFilterValue(int days, int hours, int minutes, int seconds)
-			// Параметры=(дни, часы, минуты, секунды)
+            // (дни, часы, минуты, секунды)
             {
                 this.days = days;
                 this.hours = hours;
@@ -218,40 +215,40 @@ namespace Program
             }
 
             // Фильтрация данных
-            public List<Flight> FilterFlight (List<Flight> flights)
-			// <param name="flights">список отфильтрованных данных</param>
+            public List<Flight> FilterFlight(List<Flight> flights)
+            // (список отфильтрованных данных)
             {
                 Console.Clear();
                 List<Flight> list = new List<Flight>();// список для отфильтрованных рейсов
                 int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds; // считаем секунды
-                int maxlength=0;// максимальная длительность полёта из всего списка рейсов.
+                int maxlength = 0;// максимальная длительность полёта из всего списка рейсов.
 
                 // Предварительный осмотр списка авиарейса, находим максимульную длительность полёта
                 foreach (Flight w in flights)
                 {
-					// если длительносить рейса больше предыдущего то обновляем макс. длительность
-                    if (w.Get_length_seconds()>maxlength)
+                    // если длительносить рейса больше предыдущего то обновляем макс. длительность
+                    if (w.Get_length_seconds() > maxlength)
                     {
                         maxlength = w.Get_length_seconds();
                     }
                 }
 
-                    foreach (Flight w in flights)
+                foreach (Flight w in flights)
                 {
                     // Если значения фильтра не установлено, по умолчанию, то выводим рейс с максимальной длительностью
-                    if (length==0)
+                    if (length == 0)
                     {
-						// и если длительность рейса соответствует найденному ранее макс. длительности то выводим этот рейс
+                        // и если длительность рейса соответствует найденному ранее макс. длительности то выводим этот рейс
                         if (w.Get_length_seconds() == maxlength)
-						{
+                        {
                             w.Out_Flight_Info();
-							list.Add(w);
-						}
+                            list.Add(w);
+                        }
                     }
                     // иначе выводим список, где длительность полёта рейса больше заданной длительности фильтра
                     else
                     {
-                        if(w.Get_length_seconds()>length)
+                        if (w.Get_length_seconds() > length)
                         {
                             w.Out_Flight_Info();
                             list.Add(w);
