@@ -222,9 +222,9 @@ namespace Program
 			// (список отфильтрованных данных)
             {
                 Console.Clear();
-                List<Flight> list = new List<Flight>();
+                List<Flight> list = new List<Flight>();// список для отфильтрованных рейсов
                 int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds; //считаем секунды
-                int maxlength=0;
+                int maxlength=0;// максимальная длительность полёта из всего списка рейсов.
 
                 //Предварительный осмотр списка авиарейса, находим максимульную длительность полёта
                 foreach (Flight w in flights)
