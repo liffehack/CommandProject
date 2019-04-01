@@ -9,23 +9,14 @@ namespace Program
 {
     class Program
     {
-static void Main(string[] args)
-        {   
-            // Создаем список структуры авиарейса
-            List<Flight> list = new List<Flight>();
-            
-            // Заполняем список
-            list.Add(new Flight(1, new DateTime(2015, 7, 20, 19, 00, 00), new DateTime(2015, 7, 21, 18, 30, 00), "Moscow->Cheb", "CHINA", 1000));
-            list.Add(new Flight(2, new DateTime(2015, 7, 22, 08, 00, 00), new DateTime(2015, 7, 23, 09, 00, 00), "Cheb->Moscow", "CHINA", 1000));
-            list.Add(new Flight(3, new DateTime(2015, 7, 24, 13, 00, 00), new DateTime(2015, 7, 25, 14, 00, 00), "Moscow->Kazan", "CHINA", 1200));
-            list.Add(new Flight(4, new DateTime(2015, 7, 26, 18, 00, 00), new DateTime(2015, 7, 27, 23, 00, 00), "Kazan->Moscow", "CHINA", 1200));
-            list.Add(new Flight(5, new DateTime(2015, 7, 28, 17, 00, 00), new DateTime(2015, 7, 29, 21, 00, 00), "Kazan->Cheb", "CHINA", 200));
-            list.Add(new Flight(6, new DateTime(2015, 7, 30, 14, 00, 00), new DateTime(2015, 7, 31, 01, 00, 00), "Cheb->Kazan", "CHINA", 200));
+        // Список для авиарейса
+        static List<Flight> list = new List<Flight>();
+        // Список фильтра, сюда будем заносить рейсы, удовлетворяющие нашему фильтру
+        static LengthFilter filter = new LengthFilter();
 
-            // Объявление переменной для работы с меню
-            LengthFilter filter = new LengthFilter();
-
-            // Бесконечный цикл
+        static void Main(string[] args)
+        {
+            // Бесконечный цикл для главного меню
             while (true)
             {
                 // Вывести главное меню
@@ -36,21 +27,21 @@ static void Main(string[] args)
                 Console.WriteLine("4.	Ввести значения фильтра.");
                 Console.WriteLine("5.	Выйти из программы.");
                 // Ожидание выбора пользователем пункта в главном меню
-                switch (Console.ReadLine()){
+                switch (Console.ReadLine())
+                {
                     // Обработка выбора пользоветеля
-                                          
-                    case "1": 
+                    case "1":
                         // Ввод нового элемента в список
                         Console.WriteLine("\t\tВвод элемента в список ");
                         Flight.AddFlight(ref list);
                         break;
-                        
+
                     case "2":
                         // Вывод всего списка
                         Console.WriteLine("\t\tВывод всего списка");
                         Flight.Out_All_Flight(ref list);
-                            break;
-                        
+                        break;
+
                     case "3":
                         // Вывод отфильтрованного списка
                         Console.WriteLine("\t\tВывод отфильтрованного списка ");
@@ -68,13 +59,14 @@ static void Main(string[] args)
                         System.Environment.Exit(0);
                         break;
 
-                    default: Console.WriteLine("Введите заного: ");
+                    default:
+                        Console.WriteLine("Введите заного: ");
                         break;
                 }
             }
         }
-        #region Объявление структуры Flight
 
+        #region Объявление структуры Flight
         // Хранит информациаю об авиарейсе и методы для работы с ним
         public class Flight
         {
@@ -84,10 +76,11 @@ static void Main(string[] args)
             private string napravlenie;   // направление
             private string marka;         // марка самолёта
             private int distance;         // расстояние
-            public Flight() { }
+            public Flight() {}
 
-            //Инициализация
+            // Инициализация рейса
             public Flight(int NUM_R,  DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
+                // (номер рейса, время вылета, время прибытия, направление, марка самолёта, расстояние)
                 {
                 num_r=NUM_R;
                 napravlenie = NAPRAVLENIE;
@@ -97,19 +90,19 @@ static void Main(string[] args)
                 distance = DISTANCE;
                 }
 
-            //Получить начало вылета
+            // Получить начало вылета
             public DateTime Get_time_start()
             {
-                return this.time_start;
+                return this.time_start;// Возвращаем дату и время вылета
             }
 
-            //Получить время прибытия
+            // Получить время прибытия
             public DateTime Get_time_finish()
             {
-                return this.time_finish;
+                return this.time_finish;// Возвращаем дату и время прилёта
             }
 
-            //Вывод информации об одном авиарейсе
+            // Вывод информации об одном авиарейсе
             public void Out_Flight_Info()
             {
                 Console.WriteLine("Номер авиарейса: " + num_r );
@@ -121,7 +114,7 @@ static void Main(string[] args)
                 Console.WriteLine("_________________________");
             }
 
-            //Вывод всего списка
+            // Вывод всего списка
             public static void Out_All_Flight(ref List<Flight> list)
             {
                 Console.Clear();
@@ -149,30 +142,26 @@ static void Main(string[] args)
                 fl.marka=Console.ReadLine();
                 Console.Write("Введите расстояние: ");
                 fl.distance=Int32.Parse(Console.ReadLine());
+                // После того как всё ввели, добавляем рейс к нашему списку
                 list.Add(fl);
             }
 
             //Получить длительность полёта в секундах
-            public int Get_length_secunds()
+            public int Get_length_seconds()
             {
                 //длительность
                 int lentgh = 0;
-
                 //Разница времени finish от start
                 int day = time_finish.Day - time_start.Day;
                 int hour = time_finish.Hour - time_start.Hour;
                 int minute = time_finish.Minute - time_start.Minute;
                 int second = time_finish.Second - time_start.Second;
-
                 //Разница в секундах = длительность в секундах
                 lentgh = day * 24 * 60 * 60 + hour * 60 * 60 + minute * 60 + second;
-
-                return lentgh;
+                return lentgh;  // возвращаем полёта длительность в секундах  
             }
-
         }
         #endregion
-
 
         #region Структура фильтра по длительности полёта
 
@@ -194,12 +183,12 @@ static void Main(string[] args)
 
             // Инициализация фильтра
             public LengthFilter(int days, int hours, int minutes, int seconds)
-                {
+            {
                 this.days = days;
                 this.hours = hours;
                 this.minutes = minutes;
                 this.seconds = seconds;
-                }
+             }
 
             // Изменить значение фильтра
             public void ChangeFilterValue(int days, int hours, int minutes, int seconds)
@@ -222,7 +211,6 @@ static void Main(string[] args)
                 minutes = Int32.Parse(Console.ReadLine());
                 Console.WriteLine("Введите длительность секунд полёта <60 ");
                 seconds = Int32.Parse(Console.ReadLine());
-
             }
 
             // Фильтрация данных
@@ -232,28 +220,30 @@ static void Main(string[] args)
                 List<Flight> list = new List<Flight>();
                 int length = days * 60 * 60 * 24 + hours * 60 * 60 + minutes * 60 + seconds;
                 int maxlength=0;
+
+                //Предварительный осмотр списка авиарейса, находим максимульную длительность полёта
                 foreach (Flight w in flights)
                 {
-                    if (w.Get_length_secunds()>maxlength)
+                    if (w.Get_length_seconds()>maxlength)
                     {
-                        maxlength = w.Get_length_secunds();
+                        maxlength = w.Get_length_seconds();
                     }
                 }
 
                     foreach (Flight w in flights)
                 {
-                    // Если значения фильтра не установлено, по умолчанию
+                    // Если значения фильтра не установлено, по умолчанию, то выводим рейс с максимальной длительностью
                     if (length==0)
                     {
-                        if (w.Get_length_secunds() == maxlength)
+                        if (w.Get_length_seconds() == maxlength)
                             w.Out_Flight_Info();
                         list.Add(w);
 
                     }
-                    // иначе выводим список удовлетворяющих услових
+                    // иначе выводим список, где длительность полёта рейса больше заданной длительности фильтра
                     else
                     {
-                        if(w.Get_length_secunds()>length)
+                        if(w.Get_length_seconds()>length)
                         {
                             w.Out_Flight_Info();
                             list.Add(w);
@@ -264,6 +254,6 @@ static void Main(string[] args)
             }
 
         }
-        #endregion    
+        #endregion
     }
 }
