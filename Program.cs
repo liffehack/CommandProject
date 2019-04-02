@@ -21,6 +21,7 @@ namespace Program
                 Console.WriteLine("3.	Вывести отфильтрованный список (по умолчанию фильтр пуст).");
                 Console.WriteLine("4.	Ввести значения фильтра.");
                 Console.WriteLine("5.	Выйти из программы.");
+
                 // Ожидание выбора пользователем пункта в главном меню
                 switch (Console.ReadLine())
                 {
@@ -369,7 +370,7 @@ namespace Program
                     // Рассматриваем каждый рейс с списка авиарейсов
                     foreach (AviaReis w in list)
                     {
-                        // Если номер рейса меньше заданной
+                        // Если номер рейса меньше заданной, выводим этот рейс
                         if (w.num_flight < Int32.Parse(filtr.max_num_flight))
                             w.Out_Flight_Info();
                     }
@@ -395,7 +396,7 @@ namespace Program
                     // Рассматриваем каждый рейс с списка авиарейсов
                     foreach (AviaReis w in list)
                     {
-                        // Если время вылета больше заданной
+                        // Если время вылета больше заданной, то выведем этот рейс
                         if (w.time_start > DateTime.Parse(filtr.time_start_vilet))
                             w.Out_Flight_Info();
                     }
@@ -408,7 +409,7 @@ namespace Program
                     // Рассматриваем каждый рейс с списка авиарейсов
                     foreach (AviaReis w in list)
                     {
-                        // Если время вылета меньше заданной
+                        // Если время вылета меньше заданной, то выведем этот рейс
                         if (w.time_start < DateTime.Parse(filtr.time_finish_vilet))
                             w.Out_Flight_Info();
                     }
@@ -421,7 +422,7 @@ namespace Program
                     // Рассматриваем каждый рейс с списка авиарейсов
                     foreach (AviaReis w in list)
                     {
-                        // Если время вылета находиться в указанном интервале
+                        // Если время вылета находиться в указанном интервале, то выведем этот рейс
                         if ((w.time_start > DateTime.Parse(filtr.time_start_vilet))&&(w.time_start < DateTime.Parse(filtr.time_finish_vilet)))
                             w.Out_Flight_Info();
                     }
@@ -434,7 +435,7 @@ namespace Program
                     // Рассматриваем каждый рейс с списка авиарейсов
                     foreach (AviaReis w in list)
                     {
-                        // Если дата и время прилётся больше указанной
+                        // Если дата и время прилётся больше указанной, то выведем этот рейс
                         if (w.time_finish > DateTime.Parse(filtr.time_start_prilet))
                             w.Out_Flight_Info();
                     }
@@ -447,7 +448,7 @@ namespace Program
                     // Рассматриваем каждый рейс с списка авиарейсов
                     foreach (AviaReis w in list)
                     {
-                        // Если дата и время прилёта меньше указанной
+                        // Если дата и время прилёта меньше указанной, то выведем этот рейс
                         if (w.time_finish < DateTime.Parse(filtr.time_finish_prilet))
                             w.Out_Flight_Info();
                     }
@@ -549,6 +550,7 @@ namespace Program
                     // Найдём авиарейс с максимальной длительностью полёта
                     foreach (AviaReis w in list)
                     {
+                        // Если длительность полёта рейса будет совпадать с ранее найденным максимальным значением, то выведем этот список 
                         if (w.Get_length_seconds() == maxlength)
                             w.Out_Flight_Info();
                     }
