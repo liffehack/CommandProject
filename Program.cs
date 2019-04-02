@@ -190,6 +190,7 @@ namespace Program
                 Console.WriteLine("4.Направление");
                 Console.WriteLine("5.Марка");
                 Console.WriteLine("6.Диапазон расстояния");
+                Console.WriteLine("7.Фильтр: вывести авиарейс с максимальной длительностью полёта");
 
                 // Считываем выбранный пункт
                 switch (Console.ReadLine())
@@ -306,6 +307,11 @@ namespace Program
                             else number_filter = 12; // Проводим фильтрацию только по мин. расстоянию
 
                         }
+                        break;
+
+                    case "7":
+                        // Фильтр: вывести авиарейс с максимальной длительностью полёта
+                        number_filter =15;
                         break;
 
                     default:
