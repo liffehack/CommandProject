@@ -28,13 +28,13 @@ namespace Program
                     case "1":
                         // Ввод нового элемента в список
                         Console.WriteLine("\t\tВвод элемента в список ");
-                        Flight.AddFlight(ref list);
+                        AviaReis.AddFlight(ref list);
                         break;
 
                     case "2":
                         // Вывод всего списка
                         Console.WriteLine("\t\tВывод всего списка");
-                        Flight.Out_All_Flight(ref list);
+                        AviaReis.Out_All_Flight(ref list);
                         break;
 
                     case "3":
@@ -63,13 +63,13 @@ namespace Program
         }
 
         // Список всех авиарейсов
-        static List<Flight> list = new List<Flight>(); 
+        static List<AviaReis> list = new List<AviaReis>(); 
         
         // Значения фильтра
         static Filter filtr = new Filter();                
 
         // Авиарейс
-        public struct Flight
+        public struct AviaReis
         {
             public int num_flight;           // номер авиарейса
             public DateTime time_start;      // время вылета
@@ -87,7 +87,7 @@ namespace Program
             /// <param name="NAPRAVLENIE">Направление</param>
             /// <param name="MARKA">Марка самолёта</param>
             /// <param name="DISTANCE">Расстояние</param>
-            public Flight(int NUM_R, DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
+            public AviaReis(int NUM_R, DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
             {
                 num_flight = NUM_R;
                 napravlenie = NAPRAVLENIE;
@@ -113,7 +113,7 @@ namespace Program
             /// Вывод всего списка
             /// </summary>
             /// <param name="list">Список авиарейсов</param>
-            public static void Out_All_Flight(ref List<Flight> list)
+            public static void Out_All_Flight(ref List<AviaReis> list)
             {
                 // Проходимся по каждому эелементу
                 foreach (var l in list)
@@ -127,10 +127,10 @@ namespace Program
             /// Добавление нового рейса
             /// </summary>
             /// <param name="list">Список авиарейса</param>
-            public static void AddFlight(ref List<Flight> list)
+            public static void AddFlight(ref List<AviaReis> list)
             {
                 //Элемент для добавления
-                Flight fl = new Flight();
+                AviaReis fl = new AviaReis();
                 Console.Write("Введите номер авиарейса: ");
                 fl.num_flight = Int32.Parse(Console.ReadLine());
                 Console.Write("Введите время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS], строго по этому формату : ");
@@ -205,6 +205,7 @@ namespace Program
                         // Если минимальное значение номера авиарейса для фильтра не указано
                         if (this.min_num_flight == "")
                         {
+                            // Если максимальное значение номера авиарейса для фильтра не указано
                             if (this.max_num_flight == "")
                                 number_filter = 0; // Фильтрация по умолчанию
                             else number_filter = 2; // Проводим фильтрацию только по макс. номеру
@@ -228,6 +229,7 @@ namespace Program
                         // Если минимальное значение даты вылета авиарейса для фильтра не указано
                         if (this.time_start_vilet == "")
                         {
+                            // Если максимальное значение даты вылета авиарейса для фильтра не указано
                             if (this.time_finish_vilet == "")
                                 number_filter = 0;  // Проводим фильтрацию по умолчанию
                             else number_filter = 5; // Проводим фильтрацию только по макс. дате вылета
@@ -271,7 +273,7 @@ namespace Program
 
                         // Если  значение направления авиарейса для фильтра не указано
                         if (napravlenie == "")
-                            number_filter = 0;
+                            number_filter = 0; // Проводим фильтрацию по умолчанию
                         else number_filter = 10; // Проводим фильтрацию по направлению
                         break;
 
@@ -296,12 +298,14 @@ namespace Program
                         // Если минимальное значение расстояния полёта не указано
                         if (this.min_distance == "")
                         {
+                            // Если максимальное значение расстояния полёта не указано
                             if (this.max_distance == "")
                                 number_filter = 0;
                             else number_filter = 13; // Проводим фильтрацию только по макс. расстоянию
                         }
                         else
                         {
+                            // Если минимальное значение расстояния полёта указано
                             if (this.max_distance != "")
                                 number_filter = 14; // Проводим фмльтрацию и по макс. и по мин. расстоянию
                             else number_filter = 12; // Проводим фильтрацию только по мин. расстоянию
@@ -328,7 +332,7 @@ namespace Program
         /// </summary>
         /// <param name="list">Список авиарейсов</param>
         /// <param name="filtr">Параметры фильтра, по которому происходит фильтрация</param>
-        static public void PrintFilteredOut(List<Flight> list, Filter filtr)
+        static public void PrintFilteredOut(List<AviaReis> list, Filter filtr)
         {
             // Выбор необходимой нам фильтрации
             switch(filtr.number_filter)
@@ -337,7 +341,9 @@ namespace Program
                 case 0:
                     // Вывести весь список авиарейса, фильтр пуст
                     Console.WriteLine("Вывести весь список авиарейса, фильтр пуст");
-                    foreach (Flight w in list)
+
+                    // Выводим список
+                    foreach (AviaReis w in list)
                     {
                         w.Out_Flight_Info();
                     }
@@ -346,8 +352,11 @@ namespace Program
                 case 1:
                     // Вывести список, номер авиарейса которого не меньше указанного номера
                     Console.WriteLine("Вывести список, номер авиарейса которого не меньше указанного номера");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        //Если номер рейса больше заданной
                         if (w.num_flight > Int32.Parse(filtr.min_num_flight))
                             w.Out_Flight_Info();
                     }
@@ -356,8 +365,11 @@ namespace Program
                 case 2:
                     // Вывести список, номер авиарейса которого не больше указанного номера
                     Console.WriteLine("Вывести список, номер авиарейса которого не больше указанного номера");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если номер рейса меньше заданной
                         if (w.num_flight < Int32.Parse(filtr.max_num_flight))
                             w.Out_Flight_Info();
                     }
@@ -366,8 +378,11 @@ namespace Program
                 case 3:
                     // Вывести список, номер авиарейса которого находится в указанной нами промежутке
                     Console.WriteLine("Вывести список, номер авиарейса которого находится в указанной нами промежутке");
-                    foreach (Flight w in list)
+                   
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если номер рейса находится в указанном интервале
                         if ((w.num_flight > Int32.Parse(filtr.min_num_flight)) && (w.num_flight < Int32.Parse(filtr.max_num_flight)))
                             w.Out_Flight_Info();
                     }
@@ -376,8 +391,11 @@ namespace Program
                 case 4:
                     // Вывести список, дата вылета которых не меньше заданной даты вылета авиарейса
                     Console.WriteLine("Вывести список, дата вылета которых не меньше заданной даты вылета авиарейса ");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если время вылета больше заданной
                         if (w.time_start > DateTime.Parse(filtr.time_start_vilet))
                             w.Out_Flight_Info();
                     }
@@ -386,8 +404,11 @@ namespace Program
                 case 5:
                     // Вывести список, дата вылета которых не больше заданной даты вылета авиарейсаа
                     Console.WriteLine("Вывести список, дата вылета которых не больше заданной даты вылета авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если время вылета меньше заданной
                         if (w.time_start < DateTime.Parse(filtr.time_finish_vilet))
                             w.Out_Flight_Info();
                     }
@@ -396,8 +417,11 @@ namespace Program
                 case 6:
                     // Вывести список в заданном интервале даты вылета авиарейса
                     Console.WriteLine("Вывести список в заданном интервале даты вылета авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если время вылета находиться в указанном интервале
                         if ((w.time_start > DateTime.Parse(filtr.time_start_vilet))&&(w.time_start < DateTime.Parse(filtr.time_finish_vilet)))
                             w.Out_Flight_Info();
                     }
@@ -406,8 +430,11 @@ namespace Program
                 case 7:
                     // Вывести список, дата прилёта которых не меньше заданной даты прилёта авиарейса
                     Console.WriteLine("Вывести список, дата прилёта которых не меньше заданной даты прилёта авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если дата и время прилётся больше указанной
                         if (w.time_finish > DateTime.Parse(filtr.time_start_prilet))
                             w.Out_Flight_Info();
                     }
@@ -416,8 +443,11 @@ namespace Program
                 case 8:
                     // Вывести список, дата прилёта которых не больше заданной даты прилёта авиарейса
                     Console.WriteLine("Вывести список, дата прилёта которых не больше заданной даты прилёта авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если дата и время прилёта меньше указанной
                         if (w.time_finish < DateTime.Parse(filtr.time_finish_prilet))
                             w.Out_Flight_Info();
                     }
@@ -426,8 +456,11 @@ namespace Program
                 case 9:
                     // Вывести список в заданном интервале даты прилёта авиарейса
                     Console.WriteLine("Вывести список в заданном интервале даты прилёта авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с нашего авиарейса
+                    foreach (AviaReis w in list)
                     {
+                        // Если дата и время прилёта находиться в интервале, то выведем этот рейс
                         if ((w.time_finish > DateTime.Parse(filtr.time_start_prilet)) && (w.time_finish < DateTime.Parse(filtr.time_finish_prilet)))
                             w.Out_Flight_Info();
                     }
@@ -436,8 +469,11 @@ namespace Program
                 case 10:
                     // Вывести список, с заданным направлением
                     Console.WriteLine("Вывести список, с заданным направлением");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если направление совпадает с направлением фильтра, тот выведем этот рейс
                         if (w.napravlenie == filtr.napravlenie)
                             w.Out_Flight_Info();
                     }
@@ -446,8 +482,11 @@ namespace Program
                 case 11:
                     // Вывести список, с заданной маркой
                     Console.WriteLine("Вывести список, с заданной маркой");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если марка совпадает с маркой фильтра, указанной нами, то выведем этот рейс
                         if (w.marka == filtr.marka)
                             w.Out_Flight_Info();
                     }
@@ -456,8 +495,11 @@ namespace Program
                 case 12:
                     // Вывести список, с минимальным расстоянием полёта авиарейса
                     Console.WriteLine("Вывести список, с минимальным расстоянием полёта авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если расстояние рейса больше указанного, то выведем этот рейс
                         if (w.distance > Int32.Parse(filtr.min_distance))
                             w.Out_Flight_Info();
                     }
@@ -466,8 +508,11 @@ namespace Program
                 case 13:
                     // Вывести список, с максимальным расстоянием полёта авиарейса
                     Console.WriteLine("Вывести список, с максимальным расстоянием полёта авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Есди расстояние меньше указанного, то выводим этот рейс
                         if (w.distance < Int32.Parse(filtr.max_distance))
                             w.Out_Flight_Info();
                     }
@@ -476,8 +521,11 @@ namespace Program
                 case 14:
                     // Вывести список, в интервале заданного расстояния авиарейса
                     Console.WriteLine("Вывести список, в интервале заданного расстояния авиарейса");
-                    foreach (Flight w in list)
+
+                    // Рассматриваем каждый рейс с списка авиарейсов
+                    foreach (AviaReis w in list)
                     {
+                        // Если расстояние находиться в указанном интервале, то выведем этот рейс 
                         if ((w.distance > Int32.Parse(filtr.min_distance)) && (w.distance < Int32.Parse(filtr.max_distance)))
                             w.Out_Flight_Info();
                     }
@@ -489,7 +537,7 @@ namespace Program
                     int maxlength=0; // максимальная длительность полёта из списка авиарейса
 
                     // Найдём максимальную длительность полёта
-                    foreach (Flight w in list)
+                    foreach (AviaReis w in list)
                     {
                         // если длительносить рейса больше предыдущего то обновляем макс. длительность
                         if (w.Get_length_seconds() > maxlength)
@@ -499,7 +547,7 @@ namespace Program
                     }
 
                     // Найдём авиарейс с максимальной длительностью полёта
-                    foreach (Flight w in list)
+                    foreach (AviaReis w in list)
                     {
                         if (w.Get_length_seconds() == maxlength)
                             w.Out_Flight_Info();
