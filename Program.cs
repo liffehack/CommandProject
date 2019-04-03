@@ -11,7 +11,7 @@ namespace Flight
         static void Main(string[] args)
         {
             // Список авиарейсов
-            List<AviaReis> aviaReis = new List<AviaReis>();
+            List<Flight> aviaReis = new List<Flight>();
 
             // Фильтр
             Filter filter = new Filter();
@@ -35,19 +35,19 @@ namespace Flight
                     case "1":
                         // Ввод нового элемента в список
                         Console.WriteLine("\t\tВвод элемента в список ");
-                        AviaReis.AddAvia(ref aviaReis);
+                        Flight.Add(ref aviaReis);
                         break;
 
                     case "2":
                         // Вывод всего списка
                         Console.WriteLine("\t\tВывод всего списка");
-                        AviaReis.OutAllAvia(ref aviaReis);
+                        Flight.OutAllAvia(ref aviaReis);
                         break;
 
                     case "3":
                         // Вывод отфильтрованного списка
                         Console.WriteLine("\t\tВывод отфильтрованного списка ");
-                        AviaReis.OutFilterAvia(aviaReis, filter);
+                        Flight.OutFilterFlight(aviaReis, filter);
                         break;
 
                     case "4":
@@ -71,42 +71,42 @@ namespace Flight
     }
 
     // Авиарейс
-    public struct AviaReis
+    public struct Flight
     {
-        public int num_reis;             // номер авиарейса
-        public DateTime time_start;      // дата и время вылета
-        public DateTime time_finish;     // дата и время прибытия
-        public string napravlenie;       // направление
-        public string marka;             // марка самолёта
+        public int Number;             // номер авиарейса
+        public DateTime DepartureTime;      // дата и время вылета
+        public DateTime ArrivalTime;     // дата и время прибытия
+        public string Direction;       // направление
+        public string Mark;             // марка самолёта
         public int distance;             // расстояние
 
         /// <summary>
         /// Инициализация рейса
         /// </summary>
-        /// <param name="NUM_R"> Номер рейса</param>
-        /// <param name="TIME_START"> Дата и ремя вылета</param>
-        /// <param name="TIME_FINISH"> Дата и время прилёта</param>
-        /// <param name="NAPRAVLENIE"> Направление</param>
-        /// <param name="MARKA"> Марка самолёта</param>
-        /// <param name="DISTANCE"> Расстояние</param>
-        public AviaReis(int NUM_R, DateTime TIME_START, DateTime TIME_FINISH, string NAPRAVLENIE, string MARKA, int DISTANCE)
+        /// <param name="number"> Номер рейса</param>
+        /// <param name="departureTime"> Дата и ремя вылета</param>
+        /// <param name="arrivalTime"> Дата и время прилёта</param>
+        /// <param name="direction"> Направление</param>
+        /// <param name="mark"> Марка самолёта</param>
+        /// <param name="distance"> Расстояние</param>
+        public Flight(int number, DateTime departureTime, DateTime arrivalTime, string direction, string mark, int distance)
         {
-            num_reis = NUM_R;
-            napravlenie = NAPRAVLENIE;
-            time_start = TIME_START;
-            time_finish = TIME_FINISH;
-            marka = MARKA;
-            distance = DISTANCE;
+            Number = number;
+            Direction = direction;
+            DepartureTime = departureTime;
+            ArrivalTime = arrivalTime;
+            Mark = mark;
+            this.distance = distance;
         }
 
         // Вывод информацию об одном авиарейсе
-        public void OutOneAvia()
+        public void OutOneFlight()
         {
-            Console.WriteLine("Номер авиарейса: " + num_reis);
-            Console.WriteLine("Дата и время вылета: " + time_start);
-            Console.WriteLine("Дата и время прилета: " + time_finish);
-            Console.WriteLine("Направление: " + napravlenie);
-            Console.WriteLine("Марка самолёта: " + marka);
+            Console.WriteLine("Номер авиарейса: " + Number);
+            Console.WriteLine("Дата и время вылета: " + DepartureTime);
+            Console.WriteLine("Дата и время прилета: " + ArrivalTime);
+            Console.WriteLine("Направление: " + Direction);
+            Console.WriteLine("Марка самолёта: " + Mark);
             Console.WriteLine("Расстояние: " + distance);
             Console.WriteLine("_________________________");
         }
@@ -115,13 +115,13 @@ namespace Flight
         /// Вывод всего списка
         /// </summary>
         /// <param name="list"> Список авиарейсов</param>
-        public static void OutAllAvia(ref List<AviaReis> list)
+        public static void OutAllAvia(ref List<Flight> list)
         {
             // Проходимся по каждому эелементу
             foreach (var l in list)
             {
                 // Выводим информацию о элементе
-                l.OutOneAvia();
+                l.OutOneFlight();
             }
         }
 
@@ -129,32 +129,32 @@ namespace Flight
         /// Добавление нового рейса
         /// </summary>
         /// <param name="list"> Список авиарейса</param>
-        public static void AddAvia(ref List<AviaReis> list)
+        public static void Add(ref List<Flight> list)
         {
             try
             {
                 // Новый рейс
-                AviaReis fl = new AviaReis();
+                Flight fl = new Flight();
 
                 // Номер рейса
                 Console.Write("Введите номер авиарейса: ");
-                fl.num_reis = Int32.Parse(Console.ReadLine());
+                fl.Number = Int32.Parse(Console.ReadLine());
 
                 // Время вылета
                 Console.Write("Введите дату и время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS], строго по этому формату : ");
-                fl.time_start = DateTime.Parse(Console.ReadLine());
+                fl.DepartureTime = DateTime.Parse(Console.ReadLine());
 
                 // Время прилёта
                 Console.Write("Введите дату и время прилета в формате [ДД.ММ.ГГГГДД.ММ.ГГГГ HH:MM:SS] строго по этому формату : ");
-                fl.time_finish = DateTime.Parse(Console.ReadLine());
+                fl.ArrivalTime = DateTime.Parse(Console.ReadLine());
 
                 // Направление
                 Console.Write("Введите направление ");
-                fl.napravlenie = Console.ReadLine();
+                fl.Direction = Console.ReadLine();
 
                 // Марка самолёта
                 Console.Write("Введите марку самолёта: ");
-                fl.marka = Console.ReadLine();
+                fl.Mark = Console.ReadLine();
 
                 // Расстояние
                 Console.Write("Введите расстояние: ");
@@ -171,53 +171,47 @@ namespace Flight
         }
 
         /// <summary>
-        /// Получить длительность полёта в секундах
-        /// </summary>
-        /// <returns> Длительность полёта в секундах</returns>
-        public int GetLengthAvia()
-        {
-            int lentgh = 0; // длительность
-            TimeSpan rez = time_finish - time_start; // Разница времени прилёта от вылета
-            lentgh = rez.Hours*60*60+ rez.Minutes*60 + rez.Seconds; // Получаем разницу в секундах
-            return lentgh;
-        }
-
-        /// <summary>
         /// Вывод отфильтрованных рейсов
         /// </summary>
         /// <param name="aviaReis"> Список рейсов</param>
         /// <param name="filter"> Фильтр</param>
-        public static void OutFilterAvia(List<AviaReis> aviaReis, Filter filter)
+        public static void OutFilterFlight(List<Flight> aviaReis, Filter filter)
         {
             // Рассматриваем каждый рейс из списка авиарейсов
-            foreach (AviaReis w in aviaReis) 
+            foreach (Flight w in aviaReis) 
             {
                 // Проверка минимального номера рейса
-                if ((filter.min_num_reis != 0) && (w.num_reis < filter.min_num_reis)) continue;
+                if ((filter.MinNumber != 0) && (w.Number < filter.MinNumber)) continue;
 
                 // Проверка максимального номера рейса
-                if ((filter.max_num_reis != 0) && (w.num_reis > filter.max_num_reis)) continue;
+                if ((filter.MaxNumber != 0) && (w.Number > filter.MaxNumber)) continue;
 
-                // Проверка минимальной длительности полёта
-                if ((filter.GetLengthFilter(true) != 0) && (w.GetLengthAvia() < filter.GetLengthFilter(true))) continue;
+                // Проверка минимального даты и времени вылета
+                if ((filter.MinDepartureTime != new DateTime(01,01,01,0,0,0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
 
-                // Проверка максимальной длительности полёта
-                if ((filter.GetLengthFilter(false) != 0) && (w.GetLengthAvia() > filter.GetLengthFilter(false))) continue;
+                // Проверка максимального даты и времени вылета
+                if ((filter.MinDepartureTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
+               
+                // Проверка минимального даты и времени прилёта
+                if ((filter.MinDepartureTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
+                
+                // Проверка максимального даты и времени прилёта
+                if ((filter.MinDepartureTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
 
                 // Проверка направления
-                if (filter.napravlenie != "" && !w.napravlenie.Contains(filter.napravlenie)) continue;
+                if (filter.Direction != "" && !w.Direction.Contains(filter.Direction)) continue;
                 
                 // Проверка марки
-                if (filter.marka != "" && !w.napravlenie.Contains(filter.marka)) continue;
+                if (filter.Mark != "" && !w.Direction.Contains(filter.Mark)) continue;
                
                 // Проверка минимального расстояния
-                if ((filter.min_distance != 0) && (w.distance < filter.min_distance)) continue;
+                if ((filter.MinDistance != 0) && (w.distance < filter.MinDistance)) continue;
 
                 // Проверка максимального расстояния
-                if ((filter.max_distance != 0) && (w.distance > filter.max_distance)) continue;
+                if ((filter.MaxDistance != 0) && (w.distance > filter.MaxDistance)) continue;
                 
                 // Вывод отфильтрованного рейса на экран
-                w.OutOneAvia(); 
+                w.OutOneFlight(); 
             }
         }
     }
@@ -225,50 +219,33 @@ namespace Flight
     // Фильтр
     public struct Filter
     {
-        public int min_num_reis;                        // Минимальный номер рейса
-        public int max_num_reis;                        // Максимальный номер рейса
-        public int min_hours, min_minutes, min_seconds; // Минимальная длительность полёта: часы, минуты, секунда
-        public int max_hours, max_minutes, max_seconds; // Максимальная длительность полёта: часы, минуты, секунда
-        public string napravlenie;                      // Направление
-        public string marka;                            // Марка
-        public int min_distance;                        // Минимальное расстояние полёта
-        public int max_distance;                        // Максимальное расстояние полёта
+        public int MinNumber;                         // Минимальный номер рейса
+        public int MaxNumber;                         // Максимальный номер рейса
+        public DateTime MinDepartureTime;             // Минимальное дата и время вылета
+        public DateTime MaxDepartureTime;             // Максимальное дата и время вылета
+        public DateTime MinArrivalTime;               // Минимальное дата и время прилета
+        public DateTime MaxArrivalTime;               // Максимальное дата и время прилета
+        public string Direction;                      // Направление
+        public string Mark;                           // Марка
+        public int MinDistance;                       // Минимальное расстояние полёта
+        public int MaxDistance;                       // Максимальное расстояние полёта
         
         // Инициализация фильтра
         public void Init()
         {
-            min_num_reis = 0;
-            max_num_reis = 0;
-            min_hours = min_minutes = min_seconds = 0;
-            max_hours = max_minutes = max_seconds = 0;
-            napravlenie="";
-            marka = "";
-            min_distance = 0;
-            max_distance = 0;
-        }
-
-        /// <summary>
-        /// Получить длительность фильтра
-        /// </summary>
-        /// <param name="Min"> Флаг: минимальная или максимальная длительность </param>
-        /// <returns>Длительность полёта</returns>
-        public int GetLengthFilter(bool Min)
-        {
-            // Длительность
-            int length = 0;
-
-            // Проверка на минимальность длительности
-            if (Min)
-                length = min_hours * 60 * 60 + min_minutes * 60 + min_seconds;
-            else
-                length = max_hours * 60 * 60 + max_minutes * 60 + max_seconds;
-            return length;
+            MinNumber = 0;
+            MaxNumber = 0;
+            Direction="";
+            Mark = "";
+            MinDepartureTime = MaxDepartureTime =new DateTime(01, 01, 01, 0, 0, 0);
+            MinArrivalTime = MaxArrivalTime = new DateTime(01, 01, 01, 0, 0, 0);
+            MaxDistance = 0;
         }
 
         /// <summary>
         /// Ввести целое значение
         /// </summary>
-        /// <param name="write"> Сообщение</param>
+        /// <param name="write"> Сообщение на экран</param>
         /// <returns> Введенное значение</returns>
         public int InputIntValue(string write)
         {
@@ -285,8 +262,29 @@ namespace Flight
                     Console.WriteLine("Ошибка: неверный формат");
                 }
             }
-            
-            
+        }
+
+        /// <summary>
+        /// Ввести дату и время
+        /// </summary>
+        /// <param name="write"> Сообщение на экран</param>
+        /// <returns> Введенная дата и время</returns>
+        public DateTime InputDateTime(string write)
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.Write(write);
+                    DateTime value = DateTime.Parse(Console.ReadLine());
+                    return value;
+                }
+                catch
+                {
+                    Console.WriteLine("Ошибка: неверный формат");
+                }
+            }
+
         }
 
         // Изменить значение фильтра
@@ -294,58 +292,60 @@ namespace Flight
         {
             // Вывод меню полей фильтра 
             Console.WriteLine("\t\tВыберите какое поле фильтра изменить:");
-            Console.WriteLine($"1. Минимальный номер рейса ({min_num_reis})");
-            Console.WriteLine($"2. Максимальный номер рейса ({max_num_reis})");
-            Console.WriteLine($"3. Минимальная длительность полёта ({min_hours}:{min_minutes}:{min_seconds})");
-            Console.WriteLine($"3. Минимальная длительность полёта ({max_hours}:{max_minutes}:{max_seconds})");
-            Console.WriteLine($"5. Направление ({napravlenie})");
-            Console.WriteLine($"6. Марка ({marka})");
-            Console.WriteLine($"7. Минимальное расстояние полёта ({min_distance})");
-            Console.WriteLine($"8. Максимальное расстояние полёта ({max_distance})");
-
-            // Считываем выбранный пункт
-            char ch = char.Parse(Console.ReadLine());
+            Console.WriteLine($"1. Минимальный номер рейса ({MinNumber})");
+            Console.WriteLine($"2. Максимальный номер рейса ({MaxNumber})");
+            Console.WriteLine($"3. Минимальная длительность вылета ({MinDepartureTime})");
+            Console.WriteLine($"4. Максимальная длительность вылёта ({MaxDepartureTime})");
+            Console.WriteLine($"5. Минимальная длительность прилёта ({MinArrivalTime})");
+            Console.WriteLine($"6. Максимальная длительность прилёта ({MaxArrivalTime})");
+            Console.WriteLine($"7. Направление ({Direction})");
+            Console.WriteLine($"8. Марка ({Mark})");
+            Console.WriteLine($"9. Минимальное расстояние полёта ({MinDistance})");
+            Console.WriteLine($"10. Максимальное расстояние полёта ({MaxDistance})");
 
             // Ожидание ввода пользователя и обработка
-            switch (ch)
+            switch (Console.ReadLine().Trim())
             {
-                // Изменение значения фильтра по имени
-                case '1': // Вводим минимальный номер рейса
-                    min_num_reis = InputIntValue("Введите минимальный номер рейса:");
+                case "1": // Вводим минимальный номер рейса
+                    MinNumber = InputIntValue("Введите минимальный номер рейса:");
                     break;
 
-                case '2': // Вводим максимальный номер рейса
-                    max_num_reis = InputIntValue("Введите максимальный номер рейса:");
+                case "2": // Вводим максимальный номер рейса
+                    MaxNumber = InputIntValue("Введите максимальный номер рейса:");
                     break;
 
-                case '3': // Вводим минимальную длительность полёта рейса
-                    min_hours = InputIntValue("Часы < 24, строго!:");
-                    min_minutes = InputIntValue("Минуты <60, строго!:");
-                    min_seconds = InputIntValue("Секунды <60, строго!:");
+                case "3": // Вводим минимальную дату и время вылета рейса
+                    MinDepartureTime = InputDateTime("Введите минимальную дату и время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS]");
                     break;
 
-                case '4': // Вводим максимальную длительность полёта рейса
-                    max_hours = InputIntValue("Часы < 24, строго!:");
-                    max_minutes = InputIntValue("Минуты <60, строго!:");
-                    max_seconds = InputIntValue("Секунды <60, строго!:");
+                case "4": // Вводим максимальную дату и время вылета рейса
+                    MaxDepartureTime = InputDateTime("Введите максимальную дату и время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS]");
                     break;
 
-                case '5': // Вводим направление рейса
+                case "5": // Вводим минимальную дату и время прилёта рейса
+                    MinArrivalTime = InputDateTime("Введите максимальную дату и время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS]");
+                    break;
+
+                case "6": // Вводим максимальную дату и время прилёта рейса
+                    MaxArrivalTime = InputDateTime("Введите максимальную дату и время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS]");
+                    break;
+
+                case "7": // Вводим напрвление
                     Console.WriteLine("Введите направление рейса:");
-                    napravlenie = Console.ReadLine().Trim();
+                    Direction = Console.ReadLine().Trim();
                     break;
 
-                case '6': // Вводим марку рейса
+                case "8": // Вводим марку
                     Console.WriteLine("Введите марку самолёта:");
-                    marka = Console.ReadLine().Trim();
+                    Mark = Console.ReadLine().Trim();
                     break;
 
-                case '7': // Вводим минимальное расстояние рейса
-                    min_distance = InputIntValue("Введите минимальное расстояние:");
+                case "9": // Вводим минимальное расстояние рейса
+                    MinDistance = InputIntValue("Введите минимальное расстояние:");
                     break;
 
-                case '8': // Вводим максимальное расстояние рейса
-                    max_distance = InputIntValue("Введите максимальное расстояние:");
+                case "10": // Вводим максимальное расстояние рейса
+                    MaxDistance = InputIntValue("Введите максимальное расстояние:");
                     break;
             }
         }
