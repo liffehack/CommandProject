@@ -41,7 +41,7 @@ namespace Flight
                     case "2":
                         // Вывод всего списка
                         Console.WriteLine("\t\tВывод всего списка");
-                        Flight.OutAllAvia(ref flight);
+                        Flight.OutAllFlight(ref flight);
                         break;
 
                     case "3":
@@ -115,7 +115,7 @@ namespace Flight
         /// Вывод всего списка
         /// </summary>
         /// <param name="list"> Список авиарейсов</param>
-        public static void OutAllAvia(ref List<Flight> list)
+        public static void OutAllFlight(ref List<Flight> list)
         {
             // Проходимся по каждому эелементу
             foreach (var l in list)
@@ -173,12 +173,12 @@ namespace Flight
         /// <summary>
         /// Вывод отфильтрованных рейсов
         /// </summary>
-        /// <param name="aviaReis"> Список рейсов</param>
+        /// <param name="flight"> Список рейсов</param>
         /// <param name="filter"> Фильтр</param>
-        public static void OutFilterFlight(List<Flight> aviaReis, Filter filter)
+        public static void OutFilterFlight(List<Flight> flight, Filter filter)
         {
             // Рассматриваем каждый рейс из списка авиарейсов
-            foreach (Flight w in aviaReis) 
+            foreach (Flight w in flight) 
             {
                 // Проверка минимального номера рейса
                 if ((filter.MinNumber != 0) && (w.Number < filter.MinNumber)) continue;
