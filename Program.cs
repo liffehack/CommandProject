@@ -11,7 +11,7 @@ namespace Flight
         static void Main(string[] args)
         {
             // Список авиарейсов
-            List<Flight> aviaReis = new List<Flight>();
+            List<Flight> flight = new List<Flight>();
 
             // Фильтр
             Filter filter = new Filter();
@@ -35,19 +35,19 @@ namespace Flight
                     case "1":
                         // Ввод нового элемента в список
                         Console.WriteLine("\t\tВвод элемента в список ");
-                        Flight.Add(ref aviaReis);
+                        Flight.Add(ref flight);
                         break;
 
                     case "2":
                         // Вывод всего списка
                         Console.WriteLine("\t\tВывод всего списка");
-                        Flight.OutAllAvia(ref aviaReis);
+                        Flight.OutAllAvia(ref flight);
                         break;
 
                     case "3":
                         // Вывод отфильтрованного списка
                         Console.WriteLine("\t\tВывод отфильтрованного списка ");
-                        Flight.OutFilterFlight(aviaReis, filter);
+                        Flight.OutFilterFlight(flight, filter);
                         break;
 
                     case "4":
