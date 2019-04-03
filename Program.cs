@@ -35,13 +35,13 @@ namespace Flight
                     case "1":
                         // Ввод нового элемента в список
                         Console.WriteLine("\t\tВвод элемента в список ");
-                        AviaReis.AddFlight(ref aviaReis);
+                        AviaReis.AddAvia(ref aviaReis);
                         break;
 
                     case "2":
                         // Вывод всего списка
                         Console.WriteLine("\t\tВывод всего списка");
-                        AviaReis.Out_All_Flight(ref aviaReis);
+                        AviaReis.OutAllAvia(ref aviaReis);
                         break;
 
                     case "3":
@@ -100,7 +100,7 @@ namespace Flight
         }
 
         // Вывод информацию об одном авиарейсе
-        public void Out_One_Flight()
+        public void OutOneAvia()
         {
             Console.WriteLine("Номер авиарейса: " + num_reis);
             Console.WriteLine("Время вылета: " + time_start);
@@ -115,13 +115,13 @@ namespace Flight
         /// Вывод всего списка
         /// </summary>
         /// <param name="list"> Список авиарейсов</param>
-        public static void Out_All_Flight(ref List<AviaReis> list)
+        public static void OutAllAvia(ref List<AviaReis> list)
         {
             // Проходимся по каждому эелементу
             foreach (var l in list)
             {
                 // Выводим информацию о элементе
-                l.Out_One_Flight();
+                l.OutOneAvia();
             }
         }
 
@@ -129,22 +129,34 @@ namespace Flight
         /// Добавление нового рейса
         /// </summary>
         /// <param name="list"> Список авиарейса</param>
-        public static void AddFlight(ref List<AviaReis> list)
+        public static void AddAvia(ref List<AviaReis> list)
         {
             try
             {
                 // Новый рейс
                 AviaReis fl = new AviaReis();
+
+                // Номер рейса
                 Console.Write("Введите номер авиарейса: ");
                 fl.num_reis = Int32.Parse(Console.ReadLine());
+
+                // Время вылета
                 Console.Write("Введите время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS], строго по этому формату : ");
                 fl.time_start = DateTime.Parse(Console.ReadLine());
+
+                // Время прилёта
                 Console.Write("Введите время прилета в формате [ДД.ММ.ГГГГДД.ММ.ГГГГ HH:MM:SS] строго по этому формату : ");
                 fl.time_finish = DateTime.Parse(Console.ReadLine());
+
+                // Направление
                 Console.Write("Введите направление ");
                 fl.napravlenie = Console.ReadLine();
+
+                // Марка самолёта
                 Console.Write("Введите марку самолёта: ");
                 fl.marka = Console.ReadLine();
+
+                // Расстояние
                 Console.Write("Введите расстояние: ");
                 fl.distance = Int32.Parse(Console.ReadLine());
 
@@ -162,7 +174,7 @@ namespace Flight
         /// Получить длительность полёта в секундах
         /// </summary>
         /// <returns> Длительность полёта в секундах</returns>
-        public int Get_length_seconds()
+        public int GetLengthAvia()
         {
             int lentgh = 0; // длительность
             TimeSpan rez = time_finish - time_start; // Разница времени прилёта от вылета
@@ -187,10 +199,10 @@ namespace Flight
                 if ((filter.max_num_reis != 0) && (w.num_reis > filter.max_num_reis)) continue;
 
                 // Проверка минимальной длительности полёта
-                if ((filter.Get_Min_Length() != 0) && (w.Get_length_seconds() < filter.Get_Min_Length())) continue;
+                if ((filter.GetLengthFilter(true) != 0) && (w.GetLengthAvia() < filter.GetLengthFilter(true))) continue;
 
                 // Проверка максимальной длительности полёта
-                if ((filter.Get_Max_Length() != 0) && (w.Get_length_seconds() > filter.Get_Max_Length())) continue;
+                if ((filter.GetLengthFilter(false) != 0) && (w.GetLengthAvia() > filter.GetLengthFilter(false))) continue;
 
                 // Проверка направления
                 if (filter.napravlenie != "" && !w.napravlenie.Contains(filter.napravlenie)) continue;
@@ -203,8 +215,9 @@ namespace Flight
 
                 // Проверка максимального расстояния
                 if ((filter.max_distance != 0) && (w.distance > filter.max_distance)) continue;
-
-                w.Out_One_Flight(); // Вывод отфильтрованного рейса на экран
+                
+                // Вывод отфильтрованного рейса на экран
+                w.OutOneAvia(); 
             }
         }
     }
@@ -235,23 +248,47 @@ namespace Flight
         }
 
         /// <summary>
-        /// Получить минимальную длительность полёта в секундах
+        /// Получить длительность фильтра
         /// </summary>
-        /// <returns> Минимальная длительность полёта в секундах</returns>
-        public int Get_Min_Length()
+        /// <param name="Min"> Флаг: минимальная или максимальная длительность </param>
+        /// <returns>Длительность полёта</returns>
+        public int GetLengthFilter(bool Min)
         {
-            int length = min_hours * 60 * 60 + min_minutes * 60 + min_seconds; // Минимальная длительность полёта в секундах
+            // Длительность
+            int length = 0;
+
+            // Проверка на минимальность длительности
+            if (Min)
+                length = min_hours * 60 * 60 + min_minutes * 60 + min_seconds;
+            else
+                length = max_hours * 60 * 60 + max_minutes * 60 + max_seconds;
+
+            // Возвращаем длительность полёта
             return length;
         }
 
         /// <summary>
-        /// Получить максимальную длительность полёта в секундах
+        /// Ввести целое значение
         /// </summary>
-        /// <returns> Минимальная длительность полёта в секундах</returns>
-        public int Get_Max_Length()
+        /// <param name="write"> Сообщение</param>
+        /// <returns> Введенное значение</returns>
+        public int InputIntValue(string write)
         {
-            int length = max_hours * 60 * 60 + max_minutes * 60 + max_seconds; // Максимальная длительность полёта в секундах
-            return length;
+            while (true)
+            {
+                try
+                {
+                    Console.Write(write);
+                    int value = Int32.Parse(Console.ReadLine().Trim());
+                    return value;
+                }
+                catch
+                {
+                    Console.WriteLine("Ошибка: неверный формат");
+                }
+            }
+            
+            
         }
 
         // Изменить значение фильтра
@@ -276,78 +313,23 @@ namespace Flight
             {
                 // Изменение значения фильтра по имени
                 case '1': // Вводим минимальный номер рейса
-                    while (true)
-                    {
-                        try
-                        {
-                            Console.WriteLine("Введите минимальный номер рейса:");
-                            min_num_reis = Int32.Parse(Console.ReadLine().Trim());
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ошибка: неверный формат");
-                        }
-                    }
+                    min_num_reis = InputIntValue("Введите минимальный номер рейса:");
                     break;
-                   
 
                 case '2': // Вводим максимальный номер рейса
-                    while (true)
-                    {
-                        try
-                        {
-                            Console.WriteLine("Введите максимальный номер рейса:");
-                            min_num_reis = Int32.Parse(Console.ReadLine().Trim());
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ошибка: неверный формат");
-                        }
-                    }
+                    max_num_reis = InputIntValue("Введите максимальный номер рейса:");
                     break;
 
                 case '3': // Вводим минимальную длительность полёта рейса
-                    while (true)
-                    {
-                        try
-                        {
-                            Console.WriteLine("Введите минимальную длительность полёта:");
-                            Console.Write("Часы: ");
-                            min_hours = Int32.Parse(Console.ReadLine().Trim());
-                            Console.Write("Минуты: ");
-                            min_minutes = Int32.Parse(Console.ReadLine().Trim()); 
-                            Console.Write("Секунды: ");
-                            min_seconds = Int32.Parse(Console.ReadLine().Trim());
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ошибка: неверный формат");
-                        }
-                    }
+                    min_hours = InputIntValue("Часы < 24, строго!:");
+                    min_minutes = InputIntValue("Минуты <60, строго!:");
+                    min_seconds = InputIntValue("Секунды <60, строго!:");
                     break;
 
                 case '4': // Вводим максимальную длительность полёта рейса
-                    while (true)
-                    {
-                        try
-                        {
-                            Console.WriteLine("Введите максимальную длительность полёта:");
-                            Console.Write("Часы: ");
-                            max_hours = Int32.Parse(Console.ReadLine().Trim());
-                            Console.Write("Минуты: ");
-                            max_minutes = Int32.Parse(Console.ReadLine().Trim());
-                            Console.Write("Секунды: ");
-                            max_seconds = Int32.Parse(Console.ReadLine().Trim());
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ошибка: неверный формат");
-                        }
-                    }
+                    max_hours = InputIntValue("Часы < 24, строго!:");
+                    max_minutes = InputIntValue("Минуты <60, строго!:");
+                    max_seconds = InputIntValue("Секунды <60, строго!:");
                     break;
 
                 case '5': // Вводим направление рейса
@@ -361,35 +343,11 @@ namespace Flight
                     break;
 
                 case '7': // Вводим минимальное расстояние рейса
-                    while (true)
-                    {
-                        try
-                        {
-                            Console.WriteLine("Введите минимальное расстояние полёта:");
-                            min_distance = Int32.Parse(Console.ReadLine().Trim());
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ошибка: неверный формат");
-                        }
-                    }
+                    min_distance = InputIntValue("Введите минимальное расстояние:");
                     break;
 
                 case '8': // Вводим максимальное расстояние рейса
-                    while (true)
-                    {
-                        try
-                        {
-                            Console.WriteLine("Введите максимальное расстояние полёта:");
-                            max_distance = Int32.Parse(Console.ReadLine().Trim());
-                            break;
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ошибка: неверный формат");
-                        }
-                    }
+                    max_distance = InputIntValue("Введите максимальное расстояние:");
                     break;
             }
         }
