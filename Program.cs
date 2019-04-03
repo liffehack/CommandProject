@@ -190,13 +190,13 @@ namespace Flight
                 if ((filter.MinDepartureTime != new DateTime(01,01,01,0,0,0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
 
                 // Проверка максимального даты и времени вылета
-                if ((filter.MinDepartureTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
+                if ((filter.MaxDepartureTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime > filter.MaxDepartureTime)) continue;
                
                 // Проверка минимального даты и времени прилёта
-                if ((filter.MinDepartureTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
+                if ((filter.MinArrivalTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime < filter.MinArrivalTime)) continue;
                 
                 // Проверка максимального даты и времени прилёта
-                if ((filter.MinDepartureTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime < filter.MinDepartureTime)) continue;
+                if ((filter.MaxArrivalTime != new DateTime(01, 01, 01, 0, 0, 0)) && (w.DepartureTime > filter.MaxArrivalTime)) continue;
 
                 // Проверка направления
                 if (filter.Direction != "" && !w.Direction.Contains(filter.Direction)) continue;
