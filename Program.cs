@@ -15,7 +15,7 @@ namespace Flight
 
             // Фильтр
             Filter filter = new Filter();
-            filter.Init();	// Инициализация фильтра
+            filter.Init();
 
             // Бесконечный цикл для главного меню
             while (true)
@@ -147,8 +147,8 @@ namespace Flight
                 fl.marka = Console.ReadLine();
                 Console.Write("Введите расстояние: ");
                 fl.distance = Int32.Parse(Console.ReadLine());
-                
-				// После того как всё ввели, добавляем рейс к нашему списку
+
+                // После того как всё ввели, добавляем рейс к нашему списку
                 list.Add(fl);
             }
             catch
