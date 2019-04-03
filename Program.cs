@@ -73,12 +73,12 @@ namespace Flight
     // Авиарейс
     public struct Flight
     {
-        public int Number;             // номер авиарейса
-        public DateTime DepartureTime;      // дата и время вылета
-        public DateTime ArrivalTime;     // дата и время прибытия
-        public string Direction;       // направление
-        public string Mark;             // марка самолёта
-        public int distance;             // расстояние
+        public int Number;                   // номер авиарейса
+        public DateTime DepartureTime;       // дата и время вылета
+        public DateTime ArrivalTime;         // дата и время прибытия
+        public string Direction;             // направление
+        public string Mark;                  // марка самолёта
+        public int Distance;                 // расстояние
 
         /// <summary>
         /// Инициализация рейса
@@ -96,7 +96,7 @@ namespace Flight
             DepartureTime = departureTime;
             ArrivalTime = arrivalTime;
             Mark = mark;
-            this.distance = distance;
+            this.Distance = distance;
         }
 
         // Вывод информацию об одном авиарейсе
@@ -107,7 +107,7 @@ namespace Flight
             Console.WriteLine("Дата и время прилета: " + ArrivalTime);
             Console.WriteLine("Направление: " + Direction);
             Console.WriteLine("Марка самолёта: " + Mark);
-            Console.WriteLine("Расстояние: " + distance);
+            Console.WriteLine("Расстояние: " + Distance);
             Console.WriteLine("_________________________");
         }
 
@@ -158,7 +158,7 @@ namespace Flight
 
                 // Расстояние
                 Console.Write("Введите расстояние: ");
-                fl.distance = Int32.Parse(Console.ReadLine());
+                fl.Distance = Int32.Parse(Console.ReadLine());
 
                 // После того как всё ввели, добавляем рейс к нашему списку
                 list.Add(fl);
@@ -205,10 +205,10 @@ namespace Flight
                 if (filter.Mark != "" && !w.Direction.Contains(filter.Mark)) continue;
                
                 // Проверка минимального расстояния
-                if ((filter.MinDistance != 0) && (w.distance < filter.MinDistance)) continue;
+                if ((filter.MinDistance != 0) && (w.Distance < filter.MinDistance)) continue;
 
                 // Проверка максимального расстояния
-                if ((filter.MaxDistance != 0) && (w.distance > filter.MaxDistance)) continue;
+                if ((filter.MaxDistance != 0) && (w.Distance > filter.MaxDistance)) continue;
                 
                 // Вывод отфильтрованного рейса на экран
                 w.OutOneFlight(); 
