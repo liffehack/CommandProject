@@ -84,8 +84,8 @@ namespace Flight
         /// Инициализация рейса
         /// </summary>
         /// <param name="NUM_R"> Номер рейса</param>
-        /// <param name="TIME_START"> Время вылета</param>
-        /// <param name="TIME_FINISH"> Время прилёта</param>
+        /// <param name="TIME_START"> Дата и ремя вылета</param>
+        /// <param name="TIME_FINISH"> Дата и время прилёта</param>
         /// <param name="NAPRAVLENIE"> Направление</param>
         /// <param name="MARKA"> Марка самолёта</param>
         /// <param name="DISTANCE"> Расстояние</param>
@@ -99,12 +99,12 @@ namespace Flight
             distance = DISTANCE;
         }
 
-        // Вывод информации об одном авиарейсе
+        // Вывод информацию об одном авиарейсе
         public void OutOneAvia()
         {
             Console.WriteLine("Номер авиарейса: " + num_reis);
-            Console.WriteLine("Время вылета: " + time_start);
-            Console.WriteLine("Время прилета: " + time_finish);
+            Console.WriteLine("Дата и время вылета: " + time_start);
+            Console.WriteLine("Дата и время прилета: " + time_finish);
             Console.WriteLine("Направление: " + napravlenie);
             Console.WriteLine("Марка самолёта: " + marka);
             Console.WriteLine("Расстояние: " + distance);
@@ -141,11 +141,11 @@ namespace Flight
                 fl.num_reis = Int32.Parse(Console.ReadLine());
 
                 // Время вылета
-                Console.Write("Введите время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS], строго по этому формату : ");
+                Console.Write("Введите дату и время вылета в формате [ДД.ММ.ГГГГ HH:MM:SS], строго по этому формату : ");
                 fl.time_start = DateTime.Parse(Console.ReadLine());
 
                 // Время прилёта
-                Console.Write("Введите время прилета в формате [ДД.ММ.ГГГГДД.ММ.ГГГГ HH:MM:SS] строго по этому формату : ");
+                Console.Write("Введите дату и время прилета в формате [ДД.ММ.ГГГГДД.ММ.ГГГГ HH:MM:SS] строго по этому формату : ");
                 fl.time_finish = DateTime.Parse(Console.ReadLine());
 
                 // Направление
@@ -262,8 +262,6 @@ namespace Flight
                 length = min_hours * 60 * 60 + min_minutes * 60 + min_seconds;
             else
                 length = max_hours * 60 * 60 + max_minutes * 60 + max_seconds;
-
-            // Возвращаем длительность полёта
             return length;
         }
 
@@ -311,6 +309,7 @@ namespace Flight
             // Ожидание ввода пользователя и обработка
             switch (ch)
             {
+                // Изменение значения фильтра по имени
                 case '1': // Вводим минимальный номер рейса
                     min_num_reis = InputIntValue("Введите минимальный номер рейса:");
                     break;
