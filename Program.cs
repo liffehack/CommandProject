@@ -99,7 +99,7 @@ namespace Flight
             distance = DISTANCE;
         }
 
-        // Вывод информацию об одном авиарейсе
+        // Вывод информации об одном авиарейсе
         public void OutOneAvia()
         {
             Console.WriteLine("Номер авиарейса: " + num_reis);
